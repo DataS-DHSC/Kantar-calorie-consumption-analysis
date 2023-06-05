@@ -41,7 +41,8 @@ NPM_calc <- function(input_data, years){
 #         REAL_7 == 'R',
   #        REAL_3 == 'R',
   #        REAL_8 == 'R') %>%
-    filter(is.na(`As Consumed`)) %>% 
+    filter(is.na(`As Consumed`)) %>% # REMOVE PRODUCTS WITH AS CONSUMED NUTRITIONAL PRODUCTS
+    filter(`Unit of Measure`!='Servings') %>%  # REMOVE PRODUCTS WITH  NUTRITIONAL INFORMATION PER SERVING
     filter(SECTOR == 'Biscuits'|# ALL BISCU 
            SECTOR == 'Take Home Soft Drinks'&
            CATEGORY == 'Mineral Waater'| # all SOFT DRINKS (NOT WATER)
