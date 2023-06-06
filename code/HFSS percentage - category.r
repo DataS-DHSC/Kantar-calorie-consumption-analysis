@@ -35,12 +35,6 @@ Kantar_2022 <- left_join(Kantar_2022,
 
 NPM_calc <- function(input_data, years){
   input_data %>% 
-  # filter(REAL_4 == 'R', # FILTER FOR PRODUCTS WITH ALL REAL NUTRITIONAL INFORMATION
-  #        REAL_2 == 'R',
-  #        REAL_0 == 'R',
-#         REAL_7 == 'R',
-  #        REAL_3 == 'R',
-  #        REAL_8 == 'R') %>%
     filter(is.na(`As Consumed`)) %>% # REMOVE PRODUCTS WITH AS CONSUMED NUTRITIONAL PRODUCTS
     filter(`Unit of Measure`!='Servings') %>%  # REMOVE PRODUCTS WITH  NUTRITIONAL INFORMATION PER SERVING
     filter(SECTOR == 'Biscuits'|# ALL BISCU 
@@ -180,7 +174,7 @@ NPM %>%
   ggplot(aes(year,p,fill=HFSS)) +
   geom_line() +
   scale_y_continuous(limits = c(0,1),labels = percent) +
-  labs(title = 'Percentage of UK grocary products classed as NPM',
+  labs(title = 'Percentage of GB grocary products classed as HFSS',
        subtitle = 'in legislative categories',
        caption = 'Source: Kantar sales weighted average',
        y = 'Percent')
