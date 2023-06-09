@@ -35,39 +35,185 @@ Kantar_2022 <- left_join(Kantar_2022,
 
 NPM_calc <- function(input_data, years){
   input_data %>% 
+    filter(CATEGORY == 'Ambient Cakes+Pastries' &   
+             SUB_CATEGORY != 'Other Dessert/Meringue'& 
+             SUB_CATEGORY != 'Slices'& 
+             SUB_CATEGORY != 'Trifle Sponges'|
+           CATEGORY == 'Ambient Christmas Pudding'|
+           CATEGORY == 'Morning Goods' & 
+             SUB_CATEGORY %in% c('Bagels',
+                                 'Croissants',
+                                 'Crumpets/Pikelets',
+                                 'Crusty', # review - bread excluded
+                                 'Fruited Iced Buns',
+                                 'Fruited Other Buns',
+                                 'Hotcross Buns',
+                                 'Lavash Bread',
+                                 'Muffins', #revew - include english, not american
+                                 'Pain Au Chocolate',
+                                 'Pancakes/Griddle Scones',
+                                 'Partbaked', #revew
+                                 'Scones',
+                                 'Soft', #revew
+                                 'Teacakes',
+                                 'Unfruited Iced Buns',
+                                 'Unfruited Other Buns',
+                                 'Waffles')|
+           SECTOR == 'Biscuits' &  
+             CATEGORY != 'Confect. & Other Exclusions'& 
+             CATEGORY != 'Crackers & Crispbreads' & 
+             CATEGORY != 'Savoury Biscuits'|
+           CATEGORY == 'Ambient Vgtrn Products'| #revew
+           CATEGORY == 'Canned Hot Meats' &  #revew
+             SUB_CATEGORY %in% c('Canned Puddings',
+                                 'Fillings',
+                                 'Other Meat Products',
+                                 'Ready Meals')|
+           CATEGORY == 'Canned Pasta Products' &  #revew
+             SUB_CATEGORY %in% c('Bolognese',
+                                 'Macaroni',
+                                 'Other Pasta',
+                                 'Pasta Meal',
+                                 'Ravioli',
+                                 'Shaped Pasta',
+                                 'Spaghetti Meals')|
+           CATEGORY == 'Canned Rice Puddings'|
+           CATEGORY == 'Fruit Filling'|
+           CATEGORY == 'Tinned Sponge Puddings'|
+           CATEGORY == 'Chilled Cakes' & 
+             SUB_CATEGORY != 'Slices'& # review
+             SUB_CATEGORY != 'Compote'& # review 
+             SUB_CATEGORY != 'Dessert Sauce/Topping'&
+             SUB_CATEGORY != 'Pavlovas/Meringues'& # review 
+           CATEGORY == 'Chilled Desserts' & 
+             SUB_CATEGORY != 'Terrine'| # review 
+           CATEGORY == 'Chilled Pizza+Bases' & 
+             SUB_CATEGORY != 'Chilled Bases'| 
+           CATEGORY == 'Chilled Processed Poultry'|
+           CATEGORY == 'Chilled Ready Meals' & 
+             SUB_CATEGORY != 'Burger Bites'& # review
+             SUB_CATEGORY != 'Hot Pies'&
+             SUB_CATEGORY != 'Vegetable Accompaniments'| # review
+           CATEGORY == 'Chilled Rice' & 
+             SUB_CATEGORY != 'Savoury'| 
+           CATEGORY == 'Chilled Vegetarian' &  
+             SUB_CATEGORY %in% c('Kievs',
+                                 'Other Meal Centres',
+                                 'Vegetable Accompaniments')| #revew
+           CATEGORY == 'Fresh Pasta' &  
+             SUB_CATEGORY == 'Fresh Filled Pasta'|
+           CATEGORY == 'Other Chilled Convenience' &  
+             SUB_CATEGORY %in% c('Potato Skins',
+                                 'Potato Wedges')| 
+           CATEGORY == 'Chilled Flavoured Milk'|
+           CATEGORY == 'Chilled Fruit Juice+Drink' & 
+             SUB_CATEGORY != 'Chilled Pure Juice'|
+           CATEGORY == 'Chilled One Shot Drinks'|
+           CATEGORY == 'Fromage Frais'| #review
+           CATEGORY == 'Yoghurt'| # REVIEW
+           CATEGORY == 'Yoghurt Drinks And Juices'| # REVIEW
+           CATEGORY == 'Chilled Prepared Fish' & 
+             SUB_CATEGORY %in% c('Battered',
+                                 'Breaded',
+                                 'Calamari/Squid',
+                                 'Fish Meals')|
+           CATEGORY == 'Wet/Smoked Fish' & 
+             SUB_CATEGORY %in% c('Calamari/Squid', # REVIEW
+                                 'Breaded')|
+           CATEGORY == 'Chilled Processed Poultry' & 
+             SUB_CATEGORY %in% c('Bites', # review
+                                 'Breasts+Fillets', # review
+                                 'Burgers', # review
+                                 'Childrens Shaped', # review
+                                 'Drumstick/Thigh', # review
+                                 'Goujons', # review
+                                 'Non Barcoded Products', # review
+                                 'Nuggets',
+                                 'Portions',
+                                 'Wings')| # review
+           CATEGORY == 'Frozen Confectionery' & 
+             SUB_CATEGORY != 'Danish Products'& # review
+             SUB_CATEGORY != 'Frozen Fruit' & 
+             SUB_CATEGORY != 'Frozen Pastry' & 
+             SUB_CATEGORY != 'Other Bakery Products'| # review
+           CATEGORY == 'Total Ice Cream'|
+           CATEGORY == 'Frozen Fish' & 
+             SUB_CATEGORY %in% c('Battered Fish',
+                                 'Breaded Fillet',
+                                 'Breaded Steaks',
+                                 'Fish Cakes',
+                                 'Fish Fingers',
+                                 'Fish Ready/Main Meals',
+                                 'Other Fish Products', # review
+                                 'Speciality Fish')| # review
+           CATEGORY == 'Frozen Flavoured Meats'|
+           CATEGORY == 'Frozen Bread' & 
+             SUB_CATEGORY %in% c('Croissants',
+                                 'Pain Au Chocolate',
+                                 'OPartbaked', # review
+                                 'Soft')| # review
+           CATEGORY == 'Frozen Meat Products' & 
+             SUB_CATEGORY %in% c('Defined Choppd+Shapd Prds', # review
+                                 'Defined Oth Mt/Pltry Prod', # review
+                                 'Faggots')|
+           CATEGORY == 'Frozen Pizzas'|
+           CATEGORY == 'Frozen Potato Products'|
+           CATEGORY == 'Frozen Processed Poultry' & 
+             SUB_CATEGORY %in% c('Bites', # review
+                                 'Breasts+Fillets', # review
+                                 'Burgers', # review
+                                 'Childrens Shaped', # review
+                                 'Drumstick', # review
+                                 'Drumstick/Thigh', # review
+                                 'Goujons', # review
+                                 'Grills', # review
+                                 'Nuggets', 
+                                 'Portions', # review
+                                 'Steaks', # review
+                                 'Thighs', # review
+                                 'Wings')| # review
+           CATEGORY == 'Frozen Ready Meals'|
+           CATEGORY == 'Frozen Vegetarian Prods' & 
+             SUB_CATEGORY %in% c('Miscellaneous Svry Prods', # review
+                                  'Other Frozen Foods')| # review
+           CATEGORY == 'Other Frozen Foods' &
+             SUB_CATEGORY == 'Other Frozen Foods'| #REVIEW
+           CATEGORY == 'Food Drinks' & 
+             SUB_CATEGORY != 'Cocoa'& # review
+             SUB_CATEGORY != 'Low Calorie Instant Choc'|
+           CATEGORY == 'Breakfast Cereals'|
+           CATEGORY == 'Toaster Pastries'|
+           CATEGORY == 'Complete Dry/Ambient Mls' & 
+             SUB_CATEGORY != 'Ambient Meals'|
+           CATEGORY == 'Sweet+Savoury Mixes' & 
+             SUB_CATEGORY %in% c('Biscuit',
+                                 'Cake Mixes',
+                                 'Crumble Mix',
+                                 'Dessert Cakes')|
+           CATEGORY == 'Ambient Sponge Puddings'|
+           CATEGORY == 'Milkshake Mixes'|
+           CATEGORY == 'Powd Desserts&Custard(B)' & 
+             SUB_CATEGORY %in% c('Blancmanges',
+                                 'Cold Instant Desserts',
+                                 'Custard Powder',
+                                 'Hot Instant Desserts',
+                                 'Instant Custard',
+                                 'Trifle')|
+           CATEGORY == 'R.T.S. Custard'|
+           CATEGORY == 'RTS Desserts Long Life'|
+           CATEGORY == 'Table+Quick Set Jellies'|
+           SECTOR == 'Take Home Confectionery'|
+           SECTOR == 'Take Home Savouries' &
+             CATEGORY != 'Nuts'|
+           SECTOR == 'Take Home Soft Drinks' &
+             SUB_CATEGORY != 'Ambient Pure Juice' &
+             SUB_CATEGORY != 'Yoghurt Drinks And Juices' &
+             SUB_CATEGORY != 'Low Calorie' &
+             SUB_CATEGORY != 'Diet' &
+             CATEGORY != 'Mineral Water' &
+             CATEGORY != 'Soda Water') %>% 
     filter(is.na(`As Consumed`)) %>% # REMOVE PRODUCTS WITH AS CONSUMED NUTRITIONAL PRODUCTS
     filter(`Unit of Measure`!='Servings') %>%  # REMOVE PRODUCTS WITH  NUTRITIONAL INFORMATION PER SERVING
-    filter(SECTOR == 'Biscuits'|# ALL BISCU 
-           SECTOR == 'Take Home Soft Drinks'&
-           CATEGORY == 'Mineral Waater'| # all SOFT DRINKS (NOT WATER)
-           CATEGORY %in% c('Ambient Cakes+Pastries',
-                           'Chilled Cakes',
-                           'Chocolate Confectionery',
-                           'Sugar Confectionery',
-                           'Total Ice Cream',
-                           'Morning goods',
-                           'Breakfast Cereals',
-                           'Youghurt',
-                           'Chilled Pizza+Bases',
-                           'Frozen Pizzas',
-                           'Chilled Prepared Fish',
-                           'Chilled Ready Meals',
-                           'Frozen Ready Meals',
-                           'Instant Hot Snacks',
-                           'Crisps',
-                           'Frozen Potato Products',
-                           'Chilled Flavoured Milk',
-                           'Ambient Flavoured Milk')|
-             SUB_CATEGORY %in% c('Canned Puddings',
-                                 'Rice Puddings',
-                                 'Ambient Sponge Puddings',
-                                 'Sponge Puddings',
-                                 'Tinned Sponge Puddings',
-                                 'Other Milk Puddings',
-                                 'Battered Fish',
-                                 'Breaded Fillet',
-                                 'Breaded',
-                                 'Yoghurt Drinks And Juices')) %>% 
   mutate(energy_score = case_when(Kj_100 <= 335 ~ 0, # ENERGY SCORE
                                   Kj_100 > 335 & Kj_100 <= 670 ~ 1,
                                   Kj_100 > 670 & Kj_100 <= 1005 ~ 2,
