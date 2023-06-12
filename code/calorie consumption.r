@@ -36,7 +36,7 @@ consumption <- data.frame(
                  sum(Kantar_2021$`Total Calories`,na.rm = T),
                  sum(Kantar_2022$`Total Calories`,na.rm = T)),
   days = c(365,365,365,366,365,365),
-  pop = c(64169395,65185724,65185724,65185724,65121729,65121729)
+  pop = c(64169395,64553909,64903140,65185724,65121729,65121729)
 )
 
 pp_daily_consumption <- consumption %>% 
