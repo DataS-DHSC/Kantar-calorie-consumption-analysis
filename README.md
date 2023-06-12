@@ -1,2 +1,2 @@
 # Kantar-analysis
-Code for Kantar related metrics
+Code for calculating calorie consumption from Kantar FMCG data
